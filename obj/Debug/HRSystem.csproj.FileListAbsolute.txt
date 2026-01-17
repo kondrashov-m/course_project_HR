@@ -1,0 +1,7 @@
+C:\Users\Mi\Desktop\курсовой проект точно\HRSystem\bin\Debug\HRSystem.exe.config
+C:\Users\Mi\Desktop\курсовой проект точно\HRSystem\bin\Debug\HRSystem.exe
+C:\Users\Mi\Desktop\курсовой проект точно\HRSystem\bin\Debug\HRSystem.pdb
+C:\Users\Mi\Desktop\курсовой проект точно\HRSystem\obj\Debug\HRSystem.csproj.AssemblyReference.cache
+C:\Users\Mi\Desktop\курсовой проект точно\HRSystem\obj\Debug\HRSystem.csproj.CoreCompileInputs.cache
+C:\Users\Mi\Desktop\курсовой проект точно\HRSystem\obj\Debug\HRSystem.exe
+C:\Users\Mi\Desktop\курсовой проект точно\HRSystem\obj\Debug\HRSystem.pdb
