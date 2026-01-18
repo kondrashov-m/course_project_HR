@@ -1,0 +1,14 @@
+C:\Users\Mi\Desktop\курсовой проект точно\HRSystem\bin\Debug\net6.0\App.config
+C:\Users\Mi\Desktop\курсовой проект точно\HRSystem\bin\Debug\net6.0\HRSystem.exe
+C:\Users\Mi\Desktop\курсовой проект точно\HRSystem\bin\Debug\net6.0\HRSystem.dll.config
+C:\Users\Mi\Desktop\курсовой проект точно\HRSystem\bin\Debug\net6.0\HRSystem.deps.json
+C:\Users\Mi\Desktop\курсовой проект точно\HRSystem\bin\Debug\net6.0\HRSystem.runtimeconfig.json
+C:\Users\Mi\Desktop\курсовой проект точно\HRSystem\bin\Debug\net6.0\HRSystem.dll
+C:\Users\Mi\Desktop\курсовой проект точно\HRSystem\bin\Debug\net6.0\HRSystem.pdb
+C:\Users\Mi\Desktop\курсовой проект точно\HRSystem\obj\Debug\net6.0\HRSystem.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Mi\Desktop\курсовой проект точно\HRSystem\obj\Debug\net6.0\HRSystem.csproj.CoreCompileInputs.cache
+C:\Users\Mi\Desktop\курсовой проект точно\HRSystem\obj\Debug\net6.0\HRSystem.dll
+C:\Users\Mi\Desktop\курсовой проект точно\HRSystem\obj\Debug\net6.0\refint\HRSystem.dll
+C:\Users\Mi\Desktop\курсовой проект точно\HRSystem\obj\Debug\net6.0\HRSystem.pdb
+C:\Users\Mi\Desktop\курсовой проект точно\HRSystem\obj\Debug\net6.0\HRSystem.genruntimeconfig.cache
+C:\Users\Mi\Desktop\курсовой проект точно\HRSystem\obj\Debug\net6.0\ref\HRSystem.dll

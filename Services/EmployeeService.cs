@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using HRSystem.Models;
+using HRSystem.Repositories;
 
 namespace HRSystem.Services
 {
     /// <summary>
-    /// Сервис для управления сотрудниками.
+    /// пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
     /// </summary>
     public class EmployeeService : IEmployeeService
     {

@@ -1,9 +1,10 @@
 using System.Collections.Generic;
+using HRSystem.Models;
 
 namespace HRSystem.Services
 {
     /// <summary>
-    /// Интерфейс для управления сотрудниками.
+    /// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
     /// </summary>
     public interface IEmployeeService
     {

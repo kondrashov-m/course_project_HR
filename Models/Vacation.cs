@@ -3,20 +3,19 @@ using System;
 namespace HRSystem.Models
 {
     /// <summary>
-    /// Класс, представляющий отпуск сотрудника.
+    /// пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
     /// </summary>
     public class Vacation
     {
         public int Id { get; set; }
         public int EmployeeId { get; set; }
         public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
-        public string Status { get; set; } // "Утвержден", "В процессе", "Отменен"
+        public DateTime EndDate { get; set; }        public string Reason { get; set; }        public string Status { get; set; } // "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ", "пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ", "пїЅпїЅпїЅпїЅпїЅпїЅпїЅ"
 
         public Vacation()
         {
             StartDate = DateTime.Now;
-            Status = "В процессе";
+            Status = "пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
         }
 
         public Vacation(int employeeId, DateTime startDate, DateTime endDate, string status)
@@ -29,7 +28,7 @@ namespace HRSystem.Models
 
         public override string ToString()
         {
-            return $"Отпуск: {StartDate:dd.MM.yyyy} — {EndDate:dd.MM.yyyy} — Статус: {Status}";
+            return $"пїЅпїЅпїЅпїЅпїЅпїЅ: {StartDate:dd.MM.yyyy} пїЅ {EndDate:dd.MM.yyyy} пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ: {Status}";
         }
     }
 }

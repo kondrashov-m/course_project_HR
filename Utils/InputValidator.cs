@@ -1,47 +1,50 @@
 using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace HRSystem.Utils
 {
     /// <summary>
-    /// Класс для валидации ввода пользователя.
+    /// Р­РєР·РµРјРїР»СЏСЂРЅР°СЏ СЂРµР°Р»РёР·Р°С†РёСЏ РІР°Р»РёРґР°С‚РѕСЂР° РІРІРѕРґР°, РёСЃРїРѕР»СЊР·СѓСЋС‰Р°СЏ Р°Р±СЃС‚СЂР°РєС†РёСЋ РєРѕРЅСЃРѕР»Рё.
     /// </summary>
-    public static class InputValidator
+    public class InputValidator : IInputValidator
     {
-        public static string ValidateString(string prompt, string errorMessage = "Введите корректное значение")
+        private readonly IConsoleHelper _console;
+
+        public InputValidator(IConsoleHelper console)
+        {
+            _console = console ?? throw new ArgumentNullException(nameof(console));
+        }
+
+        public string ValidateString(string prompt, string errorMessage = "Р’РІРµРґРёС‚Рµ РЅРµРїСѓСЃС‚РѕРµ Р·РЅР°С‡РµРЅРёРµ")
         {
             while (true)
             {
-                Console.Write(prompt);
-                string input = Console.ReadLine();
+                _console.Write($"  вћ¤ {prompt}: ");
+                var input = _console.ReadLine();
                 if (!string.IsNullOrWhiteSpace(input))
                     return input;
-                else
-                    Console.WriteLine(errorMessage);
+                _console.WriteLine(errorMessage);
             }
         }
 
-        public static int ValidateInteger(string prompt, string errorMessage = "Введите корректное число")
+        public int ValidateInteger(string prompt, string errorMessage = "Р’РІРµРґРёС‚Рµ С†РµР»РѕРµ С‡РёСЃР»Рѕ")
         {
             while (true)
             {
-                Console.Write(prompt);
-                if (int.TryParse(Console.ReadLine(), out int result))
+                _console.Write($"  вћ¤ {prompt}: ");
+                if (int.TryParse(_console.ReadLine(), out var result))
                     return result;
-                else
-                    Console.WriteLine(errorMessage);
+                _console.WriteLine(errorMessage);
             }
         }
 
-        public static decimal ValidateDecimal(string prompt, string errorMessage = "Введите корректную сумму")
+        public decimal ValidateDecimal(string prompt, string errorMessage = "Р’РІРµРґРёС‚Рµ С‡РёСЃР»Рѕ")
         {
             while (true)
             {
-                Console.Write(prompt);
-                if (decimal.TryParse(Console.ReadLine(), out decimal result))
+                _console.Write($"  вћ¤ {prompt}: ");
+                if (decimal.TryParse(_console.ReadLine(), out var result))
                     return result;
-                else
-                    Console.WriteLine(errorMessage);
+                _console.WriteLine(errorMessage);
             }
         }
     }

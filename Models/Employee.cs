@@ -4,11 +4,11 @@ using System.ComponentModel.DataAnnotations;
 namespace HRSystem.Models
 {
     /// <summary>
-    /// Класс, представляющий сотрудника предприятия.
+    /// пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
     /// </summary>
     public class Employee
     {
-        // Свойства сотрудника
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -16,29 +16,29 @@ namespace HRSystem.Models
         public string DepartmentName { get; set; }
         public decimal BaseSalary { get; set; }
         public DateTime HireDate { get; set; }
-        public DateTime? LastVacationDate { get; set; } // Дата последнего отпуска
+        public DateTime? LastVacationDate { get; set; } // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
-        // Конструктор по умолчанию
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         public Employee()
         {
             HireDate = DateTime.Now;
         }
 
-        // Конструктор с параметрами
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         public Employee(string firstName, string lastName, string positionName, string departmentName, decimal baseSalary)
         {
-            FirstName = firstName;
-            LastName = lastName;
-            PositionName = positionName;
-            DepartmentName = departmentName;
+            FirstName = (firstName ?? string.Empty).Trim();
+            LastName = (lastName ?? string.Empty).Trim();
+            PositionName = (positionName ?? string.Empty).Trim();
+            DepartmentName = (departmentName ?? string.Empty).Trim();
             BaseSalary = baseSalary;
             HireDate = DateTime.Now;
         }
 
-        // Метод для форматированного вывода
+        // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         public override string ToString()
         {
-            return $"{FirstName} {LastName} — {PositionName}, {DepartmentName}, Зарплата: {BaseSalary:F2}";
+            return $"{FirstName} {LastName} пїЅ {PositionName}, {DepartmentName}, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: {BaseSalary:F2}";
         }
     }
 }

@@ -3,12 +3,13 @@ using System;
 namespace HRSystem.Models
 {
     /// <summary>
-    /// Класс, представляющий отдел предприятия.
+    /// пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
     /// </summary>
     public class Department
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Description { get; set; }
         public string ManagerName { get; set; }
 
         public Department()
@@ -26,7 +27,7 @@ namespace HRSystem.Models
 
         public override string ToString()
         {
-            return $"{Name} — Руководитель: {ManagerName}";
+            return $"{Name} пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: {ManagerName}";
         }
     }
 }

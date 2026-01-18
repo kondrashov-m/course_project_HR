@@ -1,9 +1,8 @@
-using System.Collections.Generic;
-
+using System.Collections.Generic;using HRSystem.Models;
 namespace HRSystem.Repositories
 {
     /// <summary>
-    /// Интерфейс репозитория для сотрудников.
+    /// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
     /// </summary>
     public interface IEmployeeRepository
     {
