@@ -12,13 +12,15 @@ namespace HRSystem.Commands
     public class EmployeeCommand : ICommand
     {
         private readonly IEmployeeService _employeeService;
+        private readonly IDepartmentService _departmentService;
         private readonly IConsoleHelper _consoleHelper;
         private readonly IInputValidator _inputValidator;
         private readonly MenuManager _menuManager;
 
-        public EmployeeCommand(IEmployeeService employeeService, IConsoleHelper consoleHelper, IInputValidator inputValidator)
+        public EmployeeCommand(IEmployeeService employeeService, IDepartmentService departmentService, IConsoleHelper consoleHelper, IInputValidator inputValidator)
         {
             _employeeService = employeeService;
+            _departmentService = departmentService;
             _consoleHelper = consoleHelper;
             _inputValidator = inputValidator;
             _menuManager = new MenuManager(consoleHelper);
@@ -83,13 +85,23 @@ namespace HRSystem.Commands
             _menuManager.PrintHeader("Добавление сотрудника");
 
             _menuManager.PrintInfo("Существующие отделы и номера:");
-            var existing = _employeeService.GetAllEmployees();
+            var allDepartments = _departmentService.GetAllDepartments();
             var departments = new List<string>();
             var positions = new List<string>();
+            
+            // Получаем названия отделов из сервиса
+            foreach (var d in allDepartments)
+            {
+                if (!string.IsNullOrWhiteSpace(d.Name))
+                    departments.Add(d.Name);
+            }
+            
+            // Получаем должности из сотрудников
+            var existing = _employeeService.GetAllEmployees();
             foreach (var e in existing)
             {
-                if (!string.IsNullOrWhiteSpace(e.DepartmentName) && !departments.Contains(e.DepartmentName)) departments.Add(e.DepartmentName);
-                if (!string.IsNullOrWhiteSpace(e.PositionName) && !positions.Contains(e.PositionName)) positions.Add(e.PositionName);
+                if (!string.IsNullOrWhiteSpace(e.PositionName) && !positions.Contains(e.PositionName)) 
+                    positions.Add(e.PositionName);
             }
 
             for (int i = 0; i < departments.Count; i++)

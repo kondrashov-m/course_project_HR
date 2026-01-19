@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HRSystem.Models;
+using HRSystem.Repositories;
 
 namespace HRSystem.Services
 {
@@ -10,47 +11,40 @@ namespace HRSystem.Services
     /// </summary>
     public class SalaryService : ISalaryService
     {
-        private static List<Salary> _salaries = new List<Salary>();
-        private static int _nextId = 1;
+        private readonly IEmployeeRepository _repository;
 
-        public List<Salary> GetAllSalaries() => _salaries.ToList();
+        public SalaryService(IEmployeeRepository repository)
+        {
+            _repository = repository;
+        }
 
-        public Salary GetSalaryById(int id) => _salaries.FirstOrDefault(s => s.Id == id);
+        public List<Salary> GetAllSalaries() => _repository.GetAllSalaries();
+
+        public Salary GetSalaryById(int id) => _repository.GetSalaryById(id);
 
         public void AddSalary(Salary salary)
         {
-            salary.Id = _nextId++;
-            _salaries.Add(salary);
+            _repository.AddSalary(salary);
         }
 
         public void UpdateSalary(Salary salary)
         {
-            var existing = _salaries.FirstOrDefault(s => s.Id == salary.Id);
-            if (existing != null)
-            {
-                existing.EmployeeId = salary.EmployeeId;
-                existing.BaseSalary = salary.BaseSalary;
-                existing.Bonus = salary.Bonus;
-                existing.Deductions = salary.Deductions;
-                existing.PaymentDate = salary.PaymentDate;
-            }
+            _repository.UpdateSalary(salary);
         }
 
         public void DeleteSalary(int id)
         {
-            var salary = _salaries.FirstOrDefault(s => s.Id == id);
-            if (salary != null)
-                _salaries.Remove(salary);
+            _repository.DeleteSalary(id);
         }
 
         public List<Salary> GetSalariesByEmployee(int employeeId)
         {
-            return _salaries.Where(s => s.EmployeeId == employeeId).ToList();
+            return _repository.GetSalariesByEmployeeId(employeeId);
         }
 
         public decimal CalculateTotalSalary(int employeeId)
         {
-            var salaries = GetSalariesByEmployee(employeeId);
+            var salaries = _repository.GetSalariesByEmployeeId(employeeId);
             return salaries.Sum(s => s.BaseSalary + s.Bonus - s.Deductions);
         }
     }

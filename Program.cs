@@ -2,6 +2,7 @@
 using HRSystem.Services;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.IO;
 using HRSystem.Repositories;
 using HRSystem.Utils;
 using HRSystem.Commands;
@@ -36,18 +37,33 @@ namespace HRSystem
             // Создаем репозиторий и сервисы
             var repository = new InMemoryRepository();
             var employeeService = new EmployeeService(repository);
-            var vacationService = new VacationService();
-            var salaryService = new SalaryService();
+            var vacationService = new VacationService(repository);
+            var salaryService = new SalaryService(repository);
             var departmentService = new DepartmentServiceImpl();
             var consoleHelper = new ConsoleHelper();
             var inputValidator = new InputValidator(consoleHelper);
             var menuManager = new MenuManager(consoleHelper);
 
             // Создаем команды
-            var employeeCommand = new EmployeeCommand(employeeService, consoleHelper, inputValidator);
+            var employeeCommand = new EmployeeCommand(employeeService, departmentService, consoleHelper, inputValidator);
             var vacationCommand = new VacationCommand(vacationService, employeeService, consoleHelper);
             var salaryCommand = new SalaryCommand(salaryService, employeeService, consoleHelper);
             var departmentCommand = new DepartmentCommand(departmentService, consoleHelper);
+            var settingsCommand = new SettingsCommand(consoleHelper);
+            var aboutCommand = new AboutCommand(consoleHelper);
+            var exitCommand = new ExitCommand(consoleHelper);
+
+            // Словарь команд для маршрутизации
+            var commands = new System.Collections.Generic.Dictionary<string, ICommand>
+            {
+                { "1", employeeCommand },
+                { "2", vacationCommand },
+                { "3", salaryCommand },
+                { "4", departmentCommand },
+                { "5", settingsCommand },
+                { "6", aboutCommand },
+                { "7", exitCommand }
+            };
 
             // Запускаем основной цикл
             while (true)
@@ -70,59 +86,25 @@ namespace HRSystem
                 
                 var choice = menuManager.GetInput("Выберите пункт меню");
                 
-                switch (choice)
+                if (commands.TryGetValue(choice, out var command))
                 {
-                    case "1":
-                        menuManager.ClearScreen();
-                        menuManager.PrintHeader("УПРАВЛЕНИЕ СОТРУДНИКАМИ");
-                        employeeCommand.Execute();
-                        menuManager.WaitForKey();
-                        break;
-                    case "2":
-                        menuManager.ClearScreen();
-                        menuManager.PrintHeader("УПРАВЛЕНИЕ ОТПУСКАМИ");
-                        vacationCommand.Execute();
-                        menuManager.WaitForKey();
-                        break;
-                    case "3":
-                        menuManager.ClearScreen();
-                        menuManager.PrintHeader("УПРАВЛЕНИЕ ЗАРПЛАТОЙ");
-                        salaryCommand.Execute();
-                        menuManager.WaitForKey();
-                        break;
-                    case "4":
-                        menuManager.ClearScreen();
-                        menuManager.PrintHeader("УПРАВЛЕНИЕ ОТДЕЛАМИ");
-                        departmentCommand.Execute();
-                        menuManager.WaitForKey();
-                        break;
-                    case "5":
-                        menuManager.ClearScreen();
-                        menuManager.PrintHeader("НАСТРОЙКИ");
-                        menuManager.PrintInfo($"Текущая валюта: {HRSystem.Utils.AppSettings.Currency}");
-                        menuManager.PrintInfo("1. Установить RUB");
-                        menuManager.PrintInfo("2. Установить USD");
-                        var sc = menuManager.GetInput("Выберите");
-                        if (sc == "1") HRSystem.Utils.AppSettings.Currency = HRSystem.Utils.Currency.RUB;
-                        else if (sc == "2") HRSystem.Utils.AppSettings.Currency = HRSystem.Utils.Currency.USD;
-                        menuManager.WaitForKey();
-                        break;
-                    case "6":
-                        menuManager.ClearScreen();
-                        menuManager.PrintHeader("О разработчике");
-                        menuManager.PrintInfo("Разработал kondrashov-m 2026");
-                        menuManager.PrintInfo("Кондрашов Михаил Иванович mig2018kondrashov@gmail.com");
-                        menuManager.WaitForKey();
-                        break;
-                    // duplicate case removed (handled above as Настройки)
-                    case "7":
-                        menuManager.ClearScreen();
-                        menuManager.PrintGoodbye();
+                    if (choice == "7") // Для команды выхода
+                    {
+                        command.Execute();
                         return;
-                    default:
-                        menuManager.PrintError("Неверный выбор. Попробуйте снова.");
+                    }
+                    else
+                    {
+                        menuManager.ClearScreen();
+                        menuManager.PrintHeader($"Выбран пункт: {command.Name}".ToUpper());
+                        command.Execute();
                         menuManager.WaitForKey();
-                        break;
+                    }
+                }
+                else
+                {
+                    menuManager.PrintError("Неверный выбор. Попробуйте снова.");
+                    menuManager.WaitForKey();
                 }
             }
         }

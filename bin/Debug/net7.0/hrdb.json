@@ -1,0 +1,19 @@
+{
+  "Employees": [
+    {
+      "Id": 1,
+      "FirstName": "\u0000\u0000\u0000\u0000\u0000",
+      "LastName": "\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
+      "PositionName": "\u0000\u0000\u0000\u0000",
+      "DepartmentName": "IT \u043E\u0442\u0434\u0435\u043B",
+      "BaseSalary": 54344,
+      "HireDate": "2026-01-19T03:46:05.5457501+03:00",
+      "LastVacationDate": null
+    }
+  ],
+  "Salaries": [],
+  "Vacations": [],
+  "NextEmployeeId": 2,
+  "NextSalaryId": 1,
+  "NextVacationId": 1
+}

@@ -11,41 +11,35 @@ namespace HRSystem.Services
     /// </summary>
     public class VacationService : IVacationService
     {
-        private static List<Vacation> _vacations = new List<Vacation>();
-        private static int _nextId = 1;
+        private readonly IEmployeeRepository _repository;
 
-        public List<Vacation> GetAllVacations() => _vacations.ToList();
+        public VacationService(IEmployeeRepository repository)
+        {
+            _repository = repository;
+        }
 
-        public Vacation GetVacationById(int id) => _vacations.FirstOrDefault(v => v.Id == id);
+        public List<Vacation> GetAllVacations() => _repository.GetAllVacations();
+
+        public Vacation GetVacationById(int id) => _repository.GetVacationById(id);
 
         public void AddVacation(Vacation vacation)
         {
-            vacation.Id = _nextId++;
-            _vacations.Add(vacation);
+            _repository.AddVacation(vacation);
         }
 
         public void UpdateVacation(Vacation vacation)
         {
-            var existing = _vacations.FirstOrDefault(v => v.Id == vacation.Id);
-            if (existing != null)
-            {
-                existing.EmployeeId = vacation.EmployeeId;
-                existing.StartDate = vacation.StartDate;
-                existing.EndDate = vacation.EndDate;
-                existing.Reason = vacation.Reason;
-            }
+            _repository.UpdateVacation(vacation);
         }
 
         public void DeleteVacation(int id)
         {
-            var vacation = _vacations.FirstOrDefault(v => v.Id == id);
-            if (vacation != null)
-                _vacations.Remove(vacation);
+            _repository.DeleteVacation(id);
         }
 
         public List<Vacation> GetVacationsByEmployee(int employeeId)
         {
-            return _vacations.Where(v => v.EmployeeId == employeeId).ToList();
+            return _repository.GetVacationsByEmployeeId(employeeId);
         }
     }
 }
