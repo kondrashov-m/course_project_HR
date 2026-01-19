@@ -1,45 +1,84 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Text.Json;
 using HRSystem.Models;
 using HRSystem.Repositories;
 
 namespace HRSystem.Services
 {
-    /// <summary>
-    /// Сервис для управления отпусками.
-    /// </summary>
     public class VacationService : IVacationService
     {
-        private readonly IEmployeeRepository _repository;
-
-        public VacationService(IEmployeeRepository repository)
+        private List<Vacation> _vacations;
+        private readonly IEmployeeRepository _employeeRepository;
+        private int _nextId = 1;
+        private readonly string _filePath = "vacations.json";
+        
+        public VacationService(IEmployeeRepository employeeRepository)
         {
-            _repository = repository;
+            _employeeRepository = employeeRepository;
+            _vacations = LoadFromFile();
+            if (_vacations.Any()) _nextId = _vacations.Max(v => v.Id) + 1;
         }
-
-        public List<Vacation> GetAllVacations() => _repository.GetAllVacations();
-
-        public Vacation GetVacationById(int id) => _repository.GetVacationById(id);
-
-        public void AddVacation(Vacation vacation)
+        
+        public Vacation CreateVacation(int employeeId, DateTime startDate, DateTime endDate)
         {
-            _repository.AddVacation(vacation);
+            var employee = _employeeRepository.GetById(employeeId);
+            if (employee == null) throw new ArgumentException("Сотрудник не найден");
+            
+            var vacation = new Vacation
+            {
+                Id = _nextId++,
+                EmployeeId = employeeId,
+                StartDate = startDate,
+                EndDate = endDate,
+                Status = "Pending"
+            };
+            _vacations.Add(vacation);
+            SaveToFile();
+            return vacation;
         }
-
-        public void UpdateVacation(Vacation vacation)
+        
+        public List<Vacation> GetEmployeeVacations(int employeeId)
         {
-            _repository.UpdateVacation(vacation);
+            return _vacations.Where(v => v.EmployeeId == employeeId).ToList();
         }
-
-        public void DeleteVacation(int id)
+        
+        public bool ApproveVacation(int vacationId)
         {
-            _repository.DeleteVacation(id);
+            var vacation = _vacations.FirstOrDefault(v => v.Id == vacationId);
+            if (vacation != null)
+            {
+                vacation.Status = "Approved";
+                SaveToFile();
+                return true;
+            }
+            return false;
         }
-
-        public List<Vacation> GetVacationsByEmployee(int employeeId)
+        
+        public bool RejectVacation(int vacationId)
         {
-            return _repository.GetVacationsByEmployeeId(employeeId);
+            var vacation = _vacations.FirstOrDefault(v => v.Id == vacationId);
+            if (vacation != null)
+            {
+                vacation.Status = "Rejected";
+                SaveToFile();
+                return true;
+            }
+            return false;
+        }
+        
+        private List<Vacation> LoadFromFile()
+        {
+            if (File.Exists(_filePath))
+            {
+                var json = File.ReadAllText(_filePath);
+                return JsonSerializer.Deserialize<List<Vacation>>(json) ?? new List<Vacation>();
+            }
+            return new List<Vacation>();
+        }
+        
+        private void SaveToFile()
+        {
+            var json = JsonSerializer.Serialize(_vacations, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(_filePath, json);
         }
     }
 }

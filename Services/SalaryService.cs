@@ -1,51 +1,60 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using HRSystem.Models;
 using HRSystem.Repositories;
 
 namespace HRSystem.Services
 {
-    /// <summary>
-    /// Сервис для управления зарплатой.
-    /// </summary>
     public class SalaryService : ISalaryService
     {
-        private readonly IEmployeeRepository _repository;
-
-        public SalaryService(IEmployeeRepository repository)
+        private readonly IEmployeeRepository _employeeRepository;
+        private readonly JsonSalaryRepository _salaryRepository;
+        
+        public SalaryService(IEmployeeRepository employeeRepository)
         {
-            _repository = repository;
+            _employeeRepository = employeeRepository;
+            _salaryRepository = new JsonSalaryRepository();
         }
-
-        public List<Salary> GetAllSalaries() => _repository.GetAllSalaries();
-
-        public Salary GetSalaryById(int id) => _repository.GetSalaryById(id);
-
-        public void AddSalary(Salary salary)
+        
+        public decimal CalculateSalary(int employeeId, int month, int year)
         {
-            _repository.AddSalary(salary);
+            var employee = _employeeRepository.GetById(employeeId);
+            if (employee == null) return 0;
+            
+            var existing = _salaryRepository.GetByEmployeeAndDate(employeeId, month, year);
+            if (existing != null)
+            {
+                return existing.Amount;
+            }
+            
+            decimal baseSalary = employee.Salary;
+            decimal tax = baseSalary * 0.13m;
+            decimal netSalary = baseSalary - tax;
+            
+            var salaryRecord = new Salary
+            {
+                EmployeeId = employeeId,
+                Month = month,
+                Year = year,
+                Amount = netSalary,
+                CalculationDate = DateTime.Now
+            };
+            
+            _salaryRepository.Add(salaryRecord);
+            return netSalary;
         }
-
-        public void UpdateSalary(Salary salary)
+        
+        public Salary GetSalaryRecord(int employeeId, int month, int year)
         {
-            _repository.UpdateSalary(salary);
+            return _salaryRepository.GetByEmployeeAndDate(employeeId, month, year);
         }
-
-        public void DeleteSalary(int id)
+        
+        public List<Salary> GetSalaryHistory(int employeeId)
         {
-            _repository.DeleteSalary(id);
+            return _salaryRepository.GetByEmployeeId(employeeId);
         }
-
-        public List<Salary> GetSalariesByEmployee(int employeeId)
+        
+        public List<Salary> GetAllSalaries()
         {
-            return _repository.GetSalariesByEmployeeId(employeeId);
-        }
-
-        public decimal CalculateTotalSalary(int employeeId)
-        {
-            var salaries = _repository.GetSalariesByEmployeeId(employeeId);
-            return salaries.Sum(s => s.BaseSalary + s.Bonus - s.Deductions);
+            return _salaryRepository.GetAll();
         }
     }
 }

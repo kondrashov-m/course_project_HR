@@ -1,0 +1,11 @@
+[
+  {
+    "Id": 2,
+    "FirstName": "\u0440\u0433\u043B\u0433",
+    "LastName": "\u0430\u043A\u0433\u043D",
+    "Position": "\u0435\u043D\u043E\u0442",
+    "Salary": 95212,
+    "HireDate": "2026-01-19T08:30:55.0730505+03:00",
+    "DepartmentId": 2
+  }
+]

@@ -1,61 +1,54 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using HRSystem.Models;
 using HRSystem.Repositories;
 
 namespace HRSystem.Services
 {
-    /// <summary>
-    /// ������ ��� ���������� ������������.
-    /// </summary>
     public class EmployeeService : IEmployeeService
     {
         private readonly IEmployeeRepository _repository;
-
+        
         public EmployeeService(IEmployeeRepository repository)
         {
             _repository = repository;
         }
-
-        public List<Employee> GetAllEmployees() => _repository.GetAll();
-
-        public Employee GetEmployeeById(int id) => _repository.GetById(id);
-
-        public void AddEmployee(Employee employee)
+        
+        public Employee CreateEmployee(string firstName, string lastName, string position, decimal salary, int departmentId)
         {
-            employee.Id = _repository.GetNextId();
-            _repository.Add(employee);
-        }
-
-        public void UpdateEmployee(Employee employee)
-        {
-            var existing = _repository.GetById(employee.Id);
-            if (existing != null)
+            var employee = new Employee
             {
-                existing.FirstName = employee.FirstName;
-                existing.LastName = employee.LastName;
-                existing.PositionName = employee.PositionName;
-                existing.DepartmentName = employee.DepartmentName;
-                existing.BaseSalary = employee.BaseSalary;
-                existing.HireDate = employee.HireDate;
+                FirstName = firstName,
+                LastName = lastName,
+                Position = position,
+                Salary = salary,
+                DepartmentId = departmentId,
+                HireDate = DateTime.Now
+            };
+            return _repository.Add(employee);
+        }
+        
+        public Employee GetEmployee(int id)
+        {
+            return _repository.GetById(id);
+        }
+        
+        public List<Employee> GetAllEmployees()
+        {
+            return _repository.GetAll();
+        }
+        
+        public void UpdateEmployeeSalary(int id, decimal salary)
+        {
+            var employee = _repository.GetById(id);
+            if (employee != null)
+            {
+                employee.Salary = salary;
                 _repository.Update(employee);
             }
         }
-
-        public void DeleteEmployee(int id)
+        
+        public bool DeleteEmployee(int id)
         {
-            _repository.Delete(id);
-        }
-
-        public List<Employee> GetEmployeesByDepartment(string departmentName)
-        {
-            return _repository.GetAll().Where(e => e.DepartmentName == departmentName).ToList();
-        }
-
-        public List<Employee> GetEmployeesByPosition(string positionName)
-        {
-            return _repository.GetAll().Where(e => e.PositionName == positionName).ToList();
+            return _repository.Delete(id);
         }
     }
 }

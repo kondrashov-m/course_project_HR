@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Mi\\Desktop\\курсовой проект точно\\HRSystem\\HRSystem.csproj": {}
+    "C:\\Users\\Mi\\Desktop\\bbb\\HRSystem.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Mi\\Desktop\\курсовой проект точно\\HRSystem\\HRSystem.csproj": {
+    "C:\\Users\\Mi\\Desktop\\bbb\\HRSystem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Mi\\Desktop\\курсовой проект точно\\HRSystem\\HRSystem.csproj",
+        "projectUniqueName": "C:\\Users\\Mi\\Desktop\\bbb\\HRSystem.csproj",
         "projectName": "HRSystem",
-        "projectPath": "C:\\Users\\Mi\\Desktop\\курсовой проект точно\\HRSystem\\HRSystem.csproj",
+        "projectPath": "C:\\Users\\Mi\\Desktop\\bbb\\HRSystem.csproj",
         "packagesPath": "C:\\Users\\Mi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Mi\\Desktop\\курсовой проект точно\\HRSystem\\obj\\",
+        "outputPath": "C:\\Users\\Mi\\Desktop\\bbb\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -22,7 +22,7 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net7.0"
+          "net8.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
@@ -30,8 +30,8 @@
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
+          "net8.0": {
+            "targetAlias": "net8.0",
             "projectReferences": {}
           }
         },
@@ -48,8 +48,8 @@
         "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net8.0": {
+          "targetAlias": "net8.0",
           "imports": [
             "net461",
             "net462",
@@ -61,30 +61,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[7.0.20, 7.0.20]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[7.0.20, 7.0.20]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[7.0.20, 7.0.20]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[7.0.20, 7.0.20]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
